@@ -1,7 +1,5 @@
 package edu.iastate.cs228.hw1;
 
-import java.io.File;
-
 /**
  * 
  * @author 
@@ -9,9 +7,7 @@ import java.io.File;
  */
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 
 /**
@@ -42,18 +38,7 @@ public class PointScanner
 	 */
 	public PointScanner(Point[] pts, Algorithm algo) throws IllegalArgumentException
 	{
-		if(pts == null) {
-			throw new IllegalArgumentException("Argument pts is null");
-		}
-		if(pts.length == 0) {
-			throw new IllegalArgumentException("Argument pts lenght is 0");
-		}
-		points = new Point[pts.length];
-		for(int i=0; i<pts.length; i++) {
-			points[i] = pts[i];
-		}
 		
-		this.sortingAlgorithm = algo;
 	}
 
 	
@@ -66,28 +51,6 @@ public class PointScanner
 	 */
 	protected PointScanner(String inputFileName, Algorithm algo) throws FileNotFoundException, InputMismatchException
 	{
-		File inputFile = new File(inputFileName);
-		Scanner in = new Scanner(inputFile);
-		
-		ArrayList<Integer> temp = new ArrayList<Integer>();
-		while(in.hasNextInt()) {
-			temp.add(in.nextInt());
-		}
-		
-		if(temp.size() % 2 != 0) {
-			throw new InputMismatchException("Input file is not contains even number of integers");
-		}
-
-		this.points = new Point[temp.size()/2];
-		
-		int j = 0;
-		for(int i = 0 ; i<temp.size(); i++) {
-			this.points[j] = new Point(temp.get(i), temp.get(i+1));
-			j++;
-		}
-		
-		this.sortingAlgorithm = algo;
-		
 		// TODO
 	}
 
