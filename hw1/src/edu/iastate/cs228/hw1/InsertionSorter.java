@@ -30,6 +30,8 @@ public class InsertionSorter extends AbstractSorter
 	 */
 	public InsertionSorter(Point[] pts) 
 	{
+		super(pts);
+		algorithm = "Insertion Sort";
 		// TODO 
 	}	
 
@@ -40,6 +42,14 @@ public class InsertionSorter extends AbstractSorter
 	@Override 
 	public void sort()
 	{
-		// TODO 
+		for(int i = 1; i < points.length; i++){
+			Point key = points[i];
+			int j = i - 1;
+			while(j >= 0 && pointComparator.compare(points[j], key) > 0) {
+				points[j+1] = points[j];
+				j--;
+			}
+				points[j + 1] = key;// TODO 
+		}
 	}		
 }

@@ -9,6 +9,7 @@ import java.io.File;
  */
 
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -109,6 +110,39 @@ public class PointScanner
 		// TODO  
 		AbstractSorter aSorter; 
 		
+		if (sortingAlgorithm == Algorithm.SelectionSort) {
+			aSorter = new SelectionSorter(points);
+		} else if (sortingAlgorithm == Algorithm.InsertionSort) {
+			aSorter = new InsertionSorter(points);
+		} else if (sortingAlgorithm == Algorithm.MergeSort) {
+			aSorter = new MergeSorter(points);
+		} else {
+			aSorter = new QuickSorter(points);
+		}
+		
+		int x = 0;
+		int y = 0;
+		
+		long startTime = System.nanoTime();
+		
+		for(int i = 0; i<2; i++) {
+			aSorter.setComparator(i);
+			if(i == 0 || i== 1 ) {
+				aSorter.sort();
+			}
+			if (i == 0) {
+				x = aSorter.getMedian().getX();
+			}
+			
+			if (i == 1) {
+				y = aSorter.getMedian().getY();
+				medianCoordinatePoint = new Point(x, y);
+			}
+			
+		}
+		
+		long endTime = System.nanoTime();
+		scanTime = endTime - startTime;
 		// create an object to be referenced by aSorter according to sortingAlgorithm. for each of the two 
 		// rounds of sorting, have aSorter do the following: 
 		// 
@@ -138,7 +172,8 @@ public class PointScanner
 	 */
 	public String stats()
 	{
-		return null; 
+		String returnString = String.format("%-17s %-10d %-10d", sortingAlgorithm, points.length, scanTime);
+		return(returnString);
 		// TODO 
 	}
 	
