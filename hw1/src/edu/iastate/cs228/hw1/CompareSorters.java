@@ -31,6 +31,13 @@ public class CompareSorters
 	public static void main(String[] args) throws FileNotFoundException
 	{		
 		// TODO 
+		System.out.println("Performance of Four Sorting Algorithms in Point Scanning");
+		System.out.println("keys  1 (random integers)  2 (file input)  3 (exit)");
+		Scanner in = new Scanner(System.in);
+		int choice = 1;
+		int trials = 1;
+
+		
 		// 
 		// Conducts multiple rounds of comparison of four sorting algorithms.  Within each round, 
 		// set up scanning as follows: 
@@ -45,6 +52,63 @@ public class CompareSorters
 		// 	
 		PointScanner[] scanners = new PointScanner[4]; 
 		
+		Random rand = new Random();
+		
+			while(true) {
+			
+				System.out.print("Trial " + trials + ": ");
+				choice = in.nextInt();
+			
+			if (choice == 3) {
+				System.exit(0);
+			} else {
+				
+				if (choice == 1) {				
+					System.out.print("Enter number of random points: ");
+					int numRandPoints = in.nextInt();
+					System.out.println();
+					
+					Point[] points = generateRandomPoints(numRandPoints, rand);
+					
+					scanners[0] = new PointScanner(points, Algorithm.SelectionSort);
+					scanners[1] = new PointScanner(points, Algorithm.InsertionSort);
+					scanners[2] = new PointScanner(points, Algorithm.MergeSort);
+					scanners[3] = new PointScanner(points, Algorithm.QuickSort);
+					
+				} else {
+					System.out.println("Points from a file");
+					System.out.print("File name: ");
+					String file = in.next();
+					
+					scanners[0] = new PointScanner(file, Algorithm.SelectionSort);
+					scanners[1] = new PointScanner(file, Algorithm.InsertionSort);
+					scanners[2] = new PointScanner(file, Algorithm.MergeSort);
+					scanners[3] = new PointScanner(file, Algorithm.QuickSort);
+				}
+			}
+
+			for (int i = 0; i < scanners.length; i++) {
+				scanners[i].scan();
+
+			}
+			
+			
+			System.out.println("");
+			System.out.printf("%-17s %-10s %-10s \n", "algorithm", "size", "time (ns)");
+			System.out.println("--------------------------------------");
+			
+			for (int i = 0; i < scanners.length; i++) {
+				System.out.println(scanners[i].stats());
+			}
+			
+			System.out.println("--------------------------------------");
+			System.out.println();
+			
+			trials += 1;
+		}
+			
+	}
+			
 		// For each input of points, do the following. 
 		// 
 		//     a) Initialize the array scanners[].  
@@ -57,7 +121,7 @@ public class CompareSorters
 		//
 		// A sample scenario is given in Section 2 of the project description. 
 		
-	}
+
 	
 	
 	/**
@@ -73,7 +137,23 @@ public class CompareSorters
 	 */
 	public static Point[] generateRandomPoints(int numPts, Random rand) throws IllegalArgumentException
 	{ 
-		return null; 
+		if (numPts < 1) {
+			throw new IllegalArgumentException("Number of points is less than 1.");
+		} else {
+			Point[] points = new Point[numPts];
+			int x;
+			int y;
+			
+			for(int i = 0; i < numPts; i++) {
+				x = rand.nextInt(101) - 50;
+				y = rand.nextInt(101) - 50;
+				
+				Point p = new Point(x, y);
+				points[i] = p;
+			}
+			
+			return(points);
+		} 
 		// TODO 
 	}
 	

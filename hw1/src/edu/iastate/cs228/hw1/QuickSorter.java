@@ -83,7 +83,7 @@ public class QuickSorter extends AbstractSorter
 				swap(i,j);
 			}
 		}
-		swap(i++, last);
+		super.swap(i+1, last);
 		return i+1;
 		// TODO 
 	}	

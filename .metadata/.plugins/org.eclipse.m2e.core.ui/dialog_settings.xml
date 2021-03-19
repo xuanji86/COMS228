@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="C:\ISU_CS\COMS228\edu\iastate\cs228\hw2"/>
 			<item value="C:\COMS309\VB_6\Backend\cychat"/>
 		</list>
 		<list key="projectNameTemplate">

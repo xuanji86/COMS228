@@ -9,10 +9,12 @@ import java.io.File;
  */
 
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
 
 
 /**
@@ -31,6 +33,7 @@ public class PointScanner
 	                                      // the x coordinates and y coordinates of those points in the array points[].
 	private Algorithm sortingAlgorithm;    
 	
+	protected String outputFileName = "output.txt";
 		
 	protected long scanTime; 	       // execution time in nanoseconds. 
 	
@@ -82,7 +85,7 @@ public class PointScanner
 		this.points = new Point[temp.size()/2];
 		
 		int j = 0;
-		for(int i = 0 ; i<temp.size(); i++) {
+		for(int i = 0 ; i<temp.size(); i+=2) {
 			this.points[j] = new Point(temp.get(i), temp.get(i+1));
 			j++;
 		}
@@ -185,7 +188,11 @@ public class PointScanner
 	@Override
 	public String toString()
 	{
-		return null; 
+//		String output ="";
+//		for(int i =0; i<points.length; i++) {
+//			output = output + "MCP: "+ medianCoordinatePoint.toString()+"\n";
+//		}
+		return "MCP: "+ "(" + medianCoordinatePoint.getX() + ", " + medianCoordinatePoint.getY() + ")"; 
 		// TODO
 	}
 
@@ -200,7 +207,16 @@ public class PointScanner
 	 */
 	public void writeMCPToFile() throws FileNotFoundException
 	{
-		// TODO 
+		PrintStream output = new PrintStream(outputFileName);
+		try{
+			System.out.println(this.outputFileName);
+			PrintWriter out = new PrintWriter(this.outputFileName);
+			
+			out.println(this.toString());
+			out.close();// TODO 
+		}catch(FileNotFoundException e){
+			throw new FileNotFoundException();
+		}
 	}	
 
 	

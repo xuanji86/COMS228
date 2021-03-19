@@ -54,6 +54,7 @@ public abstract class AbstractSorter
 			throw new IllegalArgumentException("The AbstractSorter argument pts length is zero.");
 		}
 		points = new Point[pts.length];
+		
 		for(int i =0; i< pts.length; i++){
 			points[i] = pts[i];// TODO 
 		}
@@ -85,8 +86,23 @@ public abstract class AbstractSorter
 		if(order<0 || order >1){
 			throw new IllegalArgumentException("Comparator order is less than 0 or greater than 1");// TODO 
 		}
-		if(order == 0 || order == 1) {
-			
+		if(order == 0) {
+			Point.setXorY(true);
+			pointComparator = new Comparator<>() {
+				@Override
+				public int compare(Point p1, Point p2) {
+					return p1.compareTo(p2);
+				}
+				
+			};
+		}else if(order == 1) {
+			Point.setXorY(false);
+			pointComparator = new Comparator<>() {
+				@Override
+				public int compare(Point p1, Point p2) {
+					return p1.compareTo(p2);
+				}
+			};
 		}
 	}
 
